@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Bet } from 'src/bets/entities/bet.entity';
+import { Transaction } from 'src/transactions/entities/transaction.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 import { Category, Gender } from '../../common/enum';
 
@@ -45,4 +47,10 @@ export class User {
 
     @Column({ default: true })
     isActive: boolean;
+
+    @OneToMany(() => Transaction, (transaction) => transaction.user)
+    transactions: Transaction[];
+
+    @OneToMany(() => Bet, (bet) => bet.user)
+    bets: Bet[];
 }

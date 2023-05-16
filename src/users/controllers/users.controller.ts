@@ -7,20 +7,25 @@ import {
     Patch,
     Delete,
     ParseIntPipe,
+    UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiTags } from '@nestjs/swagger';
 
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
 import { UsersService } from '../services/users.service';
-
+@ApiTags('Users')
 @Controller('users')
 export class UserController {
     constructor(private readonly userService: UsersService) {}
 
     @Post()
     async create(@Body() createUserDto: CreateUserDto) {
+        console.log('test:', createUserDto);
         return await this.userService.create(createUserDto);
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Get()
     async findAll() {
         return await this.userService.findAll();

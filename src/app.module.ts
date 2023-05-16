@@ -6,6 +6,8 @@ import { AdminsModule } from './admins/admins.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { AuthController } from './auth/controllers/auth.controller';
+import { AuthService, AuthStrategy } from './auth/services/auth.service';
 import { BetsModule } from './bets/bets.module';
 import config from './config';
 import { DatabaseModule } from './database/database.module';
@@ -26,13 +28,13 @@ import { UsersModule } from './users/users.module';
             }),
         }),
         UsersModule,
-        AuthModule,
         BetsModule,
         TransactionsModule,
         AdminsModule,
         DatabaseModule,
+        AuthModule,
     ],
-    controllers: [AppController],
-    providers: [AppService],
+    controllers: [AppController, AuthController],
+    providers: [AppService, AuthService, AuthStrategy],
 })
 export class AppModule {}

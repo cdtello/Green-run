@@ -1,64 +1,79 @@
 import { PartialType, ApiProperty } from '@nestjs/swagger';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+    IsString,
+    IsNumber,
+    IsNotEmpty,
+    IsEmail,
+    IsEnum,
+    IsBoolean,
+} from 'class-validator';
 
 import { Category, Gender } from '../../common/enum';
 
-@Entity()
 export class CreateUserDto {
+    @IsString()
+    @IsNotEmpty()
     @ApiProperty()
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @ApiProperty()
-    @Column()
     firstName: string;
 
+    @IsString()
+    @IsNotEmpty()
     @ApiProperty()
-    @Column()
     lastName: string;
 
+    @IsString()
+    @IsNotEmpty()
     @ApiProperty()
-    @Column()
     phone: string;
 
+    @IsEmail()
+    @IsNotEmpty()
     @ApiProperty()
-    @Column()
     email: string;
 
+    @IsString()
+    @IsNotEmpty()
     @ApiProperty()
-    @Column()
     username: string;
 
+    @IsString()
+    @IsNotEmpty()
     @ApiProperty()
-    @Column()
     password: string;
 
+    @IsString()
+    @IsNotEmpty()
     @ApiProperty()
-    @Column()
     address: string;
 
+    @IsString()
+    @IsNotEmpty()
     @ApiProperty()
-    @Column({ type: 'enum', enum: Gender })
     gender: Gender;
 
+    @IsString()
+    @IsNotEmpty()
     @ApiProperty()
-    @Column()
     birthDate: Date;
 
+    @IsNumber()
+    @IsNotEmpty()
     @ApiProperty()
-    @Column()
     countryId: number;
 
+    @IsString()
+    @IsNotEmpty()
     @ApiProperty()
-    @Column()
     city: string;
 
+    @IsEnum(Category)
+    @IsNotEmpty()
     @ApiProperty()
-    @Column({ type: 'enum', enum: Category })
     category: Category;
 
+    @IsBoolean()
+    @IsNotEmpty()
     @ApiProperty()
-    @Column({ default: true })
     isActive: boolean;
 }
 
