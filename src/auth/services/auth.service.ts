@@ -5,13 +5,14 @@ import * as firebaseAuth from 'firebase/auth';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
 import firebaseConnection from '../firebase';
+import { AuthDto } from '../dtos/auth.dto';
 @Injectable()
 export class AuthStrategy extends PassportStrategy(Strategy) {
     constructor() {
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
             secretOrKey:
-                '-----BEGIN CERTIFICATE-----\nMIIDHDCCAgSgAwIBAgIIJ+GHHWX2upkwDQYJKoZIhvcNAQEFBQAwMTEvMC0GA1UE\nAwwmc2VjdXJldG9rZW4uc3lzdGVtLmdzZXJ2aWNlYWNjb3VudC5jb20wHhcNMjMw\nNTA2MDkzOTI5WhcNMjMwNTIyMjE1NDI5WjAxMS8wLQYDVQQDDCZzZWN1cmV0b2tl\nbi5zeXN0ZW0uZ3NlcnZpY2VhY2NvdW50LmNvbTCCASIwDQYJKoZIhvcNAQEBBQAD\nggEPADCCAQoCggEBAOT5hpJLZyOdFJH6trgprWe0IFCyHZgkP3hUn39z9nN5TfBN\njuLvHAH2eTnWqy8Gx8oNKSbPPlI86qwjYBd4d6G4MRmiJEbLmwGMW+CpggFt7kKD\nR0hLWfOBsmJURfGPDfL4EUeK5bQIdkCtCLgcJZHfeCH1VbIgGVdW7fVFSjYguzhB\n0iHPYDKsAMRiBAR7Tb6+dchl/YAeNa/NZMu9sTn3q6thqwBEMbGJXUmwTLxk+WXq\nEsV9ysfbymr8BZ5cVpezDNG2QHQnafZSQLCNmRLz1hdtYbtsUSgUl83eJhq0N7Xs\noOucJ4wFz+Ie9w7JbuRhhbme1aT5ID8yw/jF7gkCAwEAAaM4MDYwDAYDVR0TAQH/\nBAIwADAOBgNVHQ8BAf8EBAMCB4AwFgYDVR0lAQH/BAwwCgYIKwYBBQUHAwIwDQYJ\nKoZIhvcNAQEFBQADggEBAIz3A482Gn7PAm9wdU+lgSjhKiHtEWw9eR8XqzQ/OvyJ\n9afdbEoEjobM030OW339de6DofCU/MY+gn933L929+OYh/OXXY3FHZG/taWVlMha\nF9+UeOdSNKB6U8/Qvs43WvHIyDevjm55fBtGMgX4VOgaebUFi3kTdenIP8GPG9nm\nF6xIETSABp/HSBGK52aSDdkVrbkTrqDU6jB5jtPennKbCtv/yA6zzbXwsJWpemtH\nbJT2wChbSbZkaXeWtES+uj3xhGKzOd2i21nhQx5YjVeUnH3BR+w+T9gXrec0Nj3q\nV1uQ+JdL4k+6zrhgmBp5hwIfGanz/CJFBJ6S+Xqu9sg=\n-----END CERTIFICATE-----\n',
+                '-----BEGIN CERTIFICATE-----\nMIIDHTCCAgWgAwIBAgIJAODpzjE+LN0aMA0GCSqGSIb3DQEBBQUAMDExLzAtBgNV\nBAMMJnNlY3VyZXRva2VuLnN5c3RlbS5nc2VydmljZWFjY291bnQuY29tMB4XDTIz\nMDUxNDA5MzkzMFoXDTIzMDUzMDIxNTQzMFowMTEvMC0GA1UEAwwmc2VjdXJldG9r\nZW4uc3lzdGVtLmdzZXJ2aWNlYWNjb3VudC5jb20wggEiMA0GCSqGSIb3DQEBAQUA\nA4IBDwAwggEKAoIBAQCUjruTXSImR9swwpMLWi/Pve/QmAl5gTnwhK9XuzWXPu4f\nyrATdqcgpCGdx8fTsF81MbtVKqOR9O8MEXK4DCEYSnP7Vkblh5quzwDp3BoCJPaj\n96qL1bLg1uSC907l1B7L4l3dOwGxdra9EibAcQmWhHUpO3ap1Ull+454hVcV1Xq4\naY/Sqm5/LtH8TD2gwEPw2lRghFCxHMkzViipbzXDZVXIaaF3GF3Tw2dmKixZiV7u\nYK5oPy2Xp9VlclW8QTqzKgQtMrHXiRMiyIa0Cyl2p7yjY8tc6ViFIowBgDY+HDfE\nHVje1QJUXHWjzBuSLzgqgcvNmK1rfmJjBqb+6YznAgMBAAGjODA2MAwGA1UdEwEB\n/wQCMAAwDgYDVR0PAQH/BAQDAgeAMBYGA1UdJQEB/wQMMAoGCCsGAQUFBwMCMA0G\nCSqGSIb3DQEBBQUAA4IBAQBW3v+AG32GpYyoY/eJififiiZlDYvaGqx7C5epUVru\nm7W3mFCMRyduzUd/U6xHaq9wGfqViFSpueXBfkFzl1H4XyHZll6Q9oYacygBSksE\nC7YqmgSsjmCeC+j2fE1kftfeovrwKyNav5MvNefFlXkkkZRP6HIl8u+ra/ZGnTup\nBwl0ALHLv5FkWRe+2ujAniUmfonBBQ1EYEzPK51X1BACW49OOL/HzilhpzhTp0ZS\nWpOdZ28JC2m3pWOL7WXiqyDujaQ6xG5rj+sUosM95uuOukY7HJhmWC1aojdGQl9z\n35+8kEk0EG9C+AgN4dIPtWtxeC1NdnjnF5cRIAra8aiq\n-----END CERTIFICATE-----\n',
         });
     }
 
@@ -35,23 +36,22 @@ export class AuthService {
         this.auth = firebaseAuth.getAuth(this.connection);
     }
 
-    async signup(email: string, password: string): Promise<string> {
+    async signup(authDto: AuthDto): Promise<string> {
         await firebaseAuth.createUserWithEmailAndPassword(
             this.auth,
-            email,
-            password,
+            authDto.email,
+            authDto.password,
         );
         return 'ok';
     }
 
-    async login(email: string, password: string): Promise<string> {
+    async login(authDto: AuthDto): Promise<string> {
         const result = await firebaseAuth.signInWithEmailAndPassword(
             this.auth,
-            email,
-            password,
+            authDto.email,
+            authDto.password,
         );
         const token = await result.user.getIdToken();
-        console.log(this.connection);
         return token;
     }
 }
