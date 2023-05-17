@@ -14,8 +14,8 @@ async function bootstrap() {
     );
 
     const config = new DocumentBuilder()
-        .setTitle('API')
-        .setDescription('ED TEST')
+        .setTitle('Green Run')
+        .setDescription('Sports')
         .setVersion('1.0')
         .addApiKey({ type: 'apiKey', name: 'Authorization', in: 'header' }, 'bearerToken')
         .build();

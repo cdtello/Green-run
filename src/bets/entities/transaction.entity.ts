@@ -18,9 +18,6 @@ export class Transaction {
     id: number;
 
     @Column()
-    user_id: number;
-
-    @Column()
     amount: number;
 
     @Column({ type: 'enum', enum: TransactionCategory })
@@ -52,10 +49,8 @@ export class Transaction {
     deleted_at: Date;
 
     @ManyToOne(() => User, (user) => user.transactions)
-    @JoinColumn({ name: 'user_id' })
     user: User;
 
     @ManyToOne(() => UserBet, (userBet) => userBet.transactions)
-    @JoinColumn({ name: 'user_bet_id' })
     user_bet: UserBet;
 }

@@ -9,13 +9,14 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 
-import { Category, Gender } from '../../common/enum';
+import { Category, Gender, Role } from '../../common/enum';
 
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Column({ type: 'enum', enum: Role })
     @Column()
     role: string;
 

@@ -8,9 +8,11 @@ import {
     IsBoolean,
 } from 'class-validator';
 
-import { Category, Gender } from '../../common/enum';
+import { Category, Gender, Role } from '../../common/enum';
 
 export class CreateUserDto {
+
+    @IsEnum(Role)
     @IsString()
     @IsNotEmpty()
     @ApiProperty()
