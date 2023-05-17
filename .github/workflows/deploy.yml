@@ -24,9 +24,6 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Copy dist directory
-        run: cp -r dist $GITHUB_WORKSPACE/dist
-
       - name: Deploy to AWS
         run: sls deploy
         env:
