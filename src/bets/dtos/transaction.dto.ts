@@ -1,4 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, PartialType } from "@nestjs/swagger";
 import { IsEnum, IsNotEmpty, IsPositive, IsString } from "class-validator";
 import { TransactionCategory } from "src/common/enum";
 
@@ -30,3 +30,5 @@ export class CreateTransactionDto {
     @ApiProperty()
     readonly userBetId: number;
 }
+
+export class UpdateTransactionDto extends PartialType(CreateTransactionDto) {}

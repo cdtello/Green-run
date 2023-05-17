@@ -1,4 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, PartialType } from "@nestjs/swagger";
 import { IsEnum, IsNotEmpty, IsPositive, IsString } from "class-validator";
 import { UserBetState } from "src/common/enum";
 
@@ -20,3 +20,5 @@ export class CreateUserBetDto {
     @IsEnum(UserBetState)
     readonly state: string;
 }
+
+export class UpdateUserBetDto extends PartialType(CreateUserBetDto) {}
