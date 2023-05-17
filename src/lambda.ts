@@ -18,9 +18,10 @@ export const handler = async (event, context) => {
         );
 
         const config = new DocumentBuilder()
-            .setTitle('API')
-            .setDescription('PLATZI STORE')
+            .setTitle('Green Run')
+            .setDescription('Sports')
             .setVersion('1.0')
+            .addApiKey({ type: 'apiKey', name: 'Authorization', in: 'header' }, 'bearerToken')
             .build();
         const document = SwaggerModule.createDocument(nestApp, config);
         SwaggerModule.setup('docs', nestApp, document);
