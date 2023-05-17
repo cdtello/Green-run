@@ -10,6 +10,11 @@ export enum Gender {
     OTHER = 'other',
 }
 
+export enum Role {
+    ADMIN = 'admin',
+    STANDART = 'standart',
+}
+
 export enum TransactionCategory {
     DEPOSIT = 'deposit',
     WITHDRAW = 'withdraw',

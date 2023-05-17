@@ -20,12 +20,6 @@ export class UserBet {
     id: number;
 
     @Column()
-    user_id: number;
-
-    @Column()
-    bet_id: number;
-
-    @Column()
     odd: number;
 
     @Column()
@@ -57,11 +51,9 @@ export class UserBet {
     deleted_at: Date;
 
     @ManyToOne(() => User, (user) => user.user_bets)
-    @JoinColumn({ name: 'user_id' })
     user: User;
 
     @ManyToOne(() => Bet, (bet) => bet.user_bets)
-    @JoinColumn({ name: 'bet_id' })
     bet: Bet;
 
     @OneToMany(() => Transaction, (transaction) => transaction.user_bet)

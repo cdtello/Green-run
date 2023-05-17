@@ -9,35 +9,43 @@ import {
 import { BetResult, BetStatus } from '../../common/enum';
 
 export class CreateBetDto {
+    @ApiProperty()
     @IsNumber()
     @IsNotEmpty()
     readonly amount: number;
 
+    @ApiProperty()
     @IsNumber()
     @IsNotEmpty()
     readonly bet_option: number;
 
+    @ApiProperty()
     @IsString()
     @IsNotEmpty()
     readonly sport: string;
 
+    @ApiProperty()
     @IsEnum(BetStatus)
     @IsString()
     @IsNotEmpty()
     readonly status: string;
 
+    @ApiProperty()
     @IsString()
     @IsNotEmpty()
     readonly name: string;
 
+    @ApiProperty()
     @IsNumber()
     @IsNotEmpty()
     readonly event_id: number;
 
+    @ApiProperty()
     @IsNumber()
     @IsNotEmpty()
     readonly odd: number;
 
+    @ApiProperty()
     @IsEnum(BetResult)
     @IsString()
     @IsNotEmpty()
