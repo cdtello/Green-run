@@ -14,12 +14,17 @@ export class CreateUserDto {
     @IsString()
     @IsNotEmpty()
     @ApiProperty()
-    firstName: string;
+    role: string;
 
     @IsString()
     @IsNotEmpty()
     @ApiProperty()
-    lastName: string;
+    first_name: string;
+
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty()
+    last_name: string;
 
     @IsString()
     @IsNotEmpty()
@@ -54,12 +59,12 @@ export class CreateUserDto {
     @IsString()
     @IsNotEmpty()
     @ApiProperty()
-    birthDate: Date;
+    birth_date: Date;
 
     @IsNumber()
     @IsNotEmpty()
     @ApiProperty()
-    countryId: number;
+    country_id: number;
 
     @IsString()
     @IsNotEmpty()
@@ -75,6 +80,16 @@ export class CreateUserDto {
     @IsNotEmpty()
     @ApiProperty()
     isActive: boolean;
+
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty()
+    document_id: string;
+
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty()
+    user_state: string;
 }
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {}

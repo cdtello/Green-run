@@ -1,6 +1,13 @@
-import { Bet } from 'src/bets/entities/bet.entity';
-import { Transaction } from 'src/transactions/entities/transaction.entity';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Transaction } from '../../bets/entities/transaction.entity';
+import { UserBet } from '../../bets/entities/userBet.entity';
+import {
+    Entity,
+    Column,
+    PrimaryGeneratedColumn,
+    OneToMany,
+    CreateDateColumn,
+    UpdateDateColumn,
+} from 'typeorm';
 
 import { Category, Gender } from '../../common/enum';
 
@@ -10,10 +17,13 @@ export class User {
     id: number;
 
     @Column()
-    firstName: string;
+    role: string;
 
     @Column()
-    lastName: string;
+    first_name: string;
+
+    @Column()
+    last_name: string;
 
     @Column()
     phone: string;
@@ -34,10 +44,10 @@ export class User {
     gender: Gender;
 
     @Column()
-    birthDate: Date;
+    birth_date: Date;
 
     @Column()
-    countryId: number;
+    country_id: number;
 
     @Column()
     city: string;
@@ -45,12 +55,37 @@ export class User {
     @Column({ type: 'enum', enum: Category })
     category: Category;
 
-    @Column({ default: true })
-    isActive: boolean;
+    @Column()
+    document_id: string;
+
+    @Column()
+    user_state: string;
+
+    @CreateDateColumn({
+        type: 'timestamp',
+        precision: 0,
+        default: () => 'CURRENT_TIMESTAMP',
+    })
+    created_at: Date;
+
+    @UpdateDateColumn({
+        type: 'timestamp',
+        precision: 0,
+        default: () => 'CURRENT_TIMESTAMP',
+        onUpdate: 'CURRENT_TIMESTAMP',
+    })
+    @Column()
+    updated_at: Date;
+
+    @Column({ default: false })
+    deleted: boolean;
+
+    @Column({ default: null })
+    deleted_at: Date;
 
     @OneToMany(() => Transaction, (transaction) => transaction.user)
     transactions: Transaction[];
 
-    @OneToMany(() => Bet, (bet) => bet.user)
-    bets: Bet[];
+    @OneToMany(() => UserBet, (userBet) => userBet.user)
+    user_bets: UserBet[];
 }

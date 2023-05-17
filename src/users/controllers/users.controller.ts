@@ -10,10 +10,11 @@ import {
     UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiSecurity, ApiTags } from '@nestjs/swagger';
 
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
 import { UsersService } from '../services/users.service';
+// @ApiBearerAuth()
 @ApiTags('Users')
 @Controller('users')
 export class UserController {
@@ -25,6 +26,7 @@ export class UserController {
         return await this.userService.create(createUserDto);
     }
 
+    @ApiSecurity('bearerToken')
     @UseGuards(AuthGuard('jwt'))
     @Get()
     async findAll() {

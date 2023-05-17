@@ -5,6 +5,8 @@ import { Repository } from 'typeorm';
 import { AuthService } from '../../auth/services/auth.service';
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
 import { User } from '../entities/user.entity';
+import { auth } from 'firebase-admin';
+import { AuthDto } from 'src/auth/dtos/auth.dto';
 
 @Injectable()
 export class UsersService {
@@ -18,7 +20,10 @@ export class UsersService {
     async create(createUserDto: CreateUserDto): Promise<User> {
         const user = this.usersRepository.create(createUserDto);
         console.log(user);
-        this.authService.signup(user.email, user.password);
+        const authDto: AuthDto = new AuthDto()
+        authDto.email = user.email;
+        authDto.password = user.password
+        this.authService.signup(authDto);
         return this.usersRepository.save(user);
     }
 

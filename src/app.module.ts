@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
 
-import { AdminsModule } from './admins/admins.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
@@ -12,7 +11,6 @@ import { BetsModule } from './bets/bets.module';
 import config from './config';
 import { DatabaseModule } from './database/database.module';
 import { enviroments } from './enviroments';
-import { TransactionsModule } from './transactions/transactions.module';
 import { UsersModule } from './users/users.module';
 
 @Module({
@@ -29,8 +27,6 @@ import { UsersModule } from './users/users.module';
         }),
         UsersModule,
         BetsModule,
-        TransactionsModule,
-        AdminsModule,
         DatabaseModule,
         AuthModule,
     ],
